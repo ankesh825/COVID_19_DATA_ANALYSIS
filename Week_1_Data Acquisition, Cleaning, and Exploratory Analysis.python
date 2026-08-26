@@ -1,0 +1,140 @@
+"""
+Week 1 Task: Data Acquisition, Cleaning, and Exploratory Analysis
+Dataset: Our World in Data (OWID) COVID-19 Dataset
+Author: Ankesh
+"""
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# -----------------------------------------------------------------------
+# 1. DATA ACQUISITION
+# -----------------------------------------------------------------------
+# Source URL:
+# https://github.com/ankesh825/COVID_19_DATA_ANALYSIS
+
+url = "https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/owid-covid-data.csv"
+raw = pd.read_csv(url, low_memory=False)
+print(raw.shape)   # (429435, 67)
+
+# Keep only the columns relevant to this analysis, and drop continent-level
+# aggregate rows (e.g. "World", "Asia") so only individual countries remain.
+cols = [
+    "iso_code", "continent", "location", "date",
+    "total_cases", "new_cases", "total_deaths", "new_deaths",
+    "total_cases_per_million", "total_deaths_per_million",
+    "people_vaccinated_per_hundred", "people_fully_vaccinated_per_hundred",
+    "population", "population_density", "median_age",
+    "gdp_per_capita", "hospital_beds_per_thousand",
+    "life_expectancy", "human_development_index",
+]
+df = raw[cols].copy()
+df = df[~df["continent"].isna()]
+
+
+# -----------------------------------------------------------------------
+# 2. DATA CLEANING
+# -----------------------------------------------------------------------
+
+# 2a. Data type correction
+df["date"] = pd.to_datetime(df["date"], errors="coerce")
+
+# 2b. Duplicate check
+dup_count = df.duplicated().sum()
+df = df.drop_duplicates()
+print(f"Duplicate rows removed: {dup_count}")
+
+# 2c. Daily flow columns: missing usually means "no cases reported that day"
+flow_cols = ["new_cases", "new_deaths"]
+df[flow_cols] = df[flow_cols].fillna(0)
+
+# 2d. Cumulative columns: forward-fill within each country's own timeline
+#     (a missing entry means "no update published", not "value is zero")
+df = df.sort_values(["location", "date"])
+cumulative_cols = ["total_cases", "total_deaths",
+                    "total_cases_per_million", "total_deaths_per_million"]
+df[cumulative_cols] = df.groupby("location")[cumulative_cols].ffill().fillna(0)
+
+# 2e. Vaccination columns: forward-fill per country (cumulative metric)
+vax_cols = ["people_vaccinated_per_hundred", "people_fully_vaccinated_per_hundred"]
+df[vax_cols] = df.groupby("location")[vax_cols].ffill().fillna(0)
+
+# 2f. Static country attributes: fill using that country's own known value
+#     elsewhere in its records (these barely change year to year)
+static_cols = ["population", "population_density", "median_age", "gdp_per_capita",
+               "hospital_beds_per_thousand", "life_expectancy", "human_development_index"]
+df[static_cols] = df.groupby("location")[static_cols].transform(lambda s: s.ffill().bfill())
+
+df = df.dropna(subset=["location", "date"])
+print("Cleaned shape:", df.shape)   # (402910, 19)
+
+# Save cleaned dataset
+df.to_csv("cleaned_covid_data.csv", index=False)
+
+
+# -----------------------------------------------------------------------
+# 3. EXPLORATORY DATA ANALYSIS
+# -----------------------------------------------------------------------
+
+# 3a. Summary statistics
+summary = df[["total_cases", "total_deaths", "total_deaths_per_million",
+              "people_fully_vaccinated_per_hundred", "gdp_per_capita",
+              "life_expectancy", "human_development_index"]].describe()
+summary.to_csv("summary_statistics.csv")
+print(summary)
+
+# 3b. Figure 1: Missing values bar chart (before cleaning)
+missing_pct = (raw.isna().sum() / len(raw) * 100).round(2)
+missing_pct_sorted = missing_pct[missing_pct > 0].sort_values()
+plt.figure(figsize=(9, 6))
+plt.barh(missing_pct_sorted.index, missing_pct_sorted.values, color="#e07b39")
+plt.xlabel("% Missing Values")
+plt.title("Missing Data by Column (Before Cleaning)")
+plt.tight_layout()
+plt.savefig("01_missing_values.png")
+plt.close()
+
+# 3c. Figure 2: Rolling average case trend, 5 major countries
+countries = ["United States", "India", "Brazil", "United Kingdom", "Germany"]
+trend_df = df[df["location"].isin(countries)]
+plt.figure(figsize=(11, 6))
+for c in countries:
+    sub = trend_df[trend_df["location"] == c].copy()
+    sub["new_cases_7d_avg"] = sub["new_cases"].rolling(7, min_periods=1).mean()
+    plt.plot(sub["date"], sub["new_cases_7d_avg"], label=c, linewidth=1.6)
+plt.title("COVID-19 Daily New Cases (7-Day Rolling Average) — Selected Countries")
+plt.xlabel("Date")
+plt.ylabel("New Cases (7-day avg)")
+plt.legend()
+plt.tight_layout()
+plt.savefig("02_new_cases_trend.png")
+plt.close()
+
+# 3d. Figure 3: Correlation heatmap
+latest = df.sort_values("date").groupby("location").tail(1)
+corr_cols = ["total_deaths_per_million", "gdp_per_capita", "median_age",
+             "life_expectancy", "human_development_index",
+             "hospital_beds_per_thousand", "people_fully_vaccinated_per_hundred"]
+corr_matrix = latest[corr_cols].corr()
+plt.figure(figsize=(8, 6.5))
+sns.heatmap(corr_matrix, annot=True, fmt=".2f", cmap="coolwarm", center=0,
+            square=True, linewidths=0.5)
+plt.title("Correlation Between Socio-Economic Factors & COVID-19 Outcomes")
+plt.tight_layout()
+plt.savefig("03_correlation_heatmap.png")
+plt.close()
+
+# 3e. Figure 4: GDP vs vaccination scatter
+plt.figure(figsize=(9, 6))
+plt.scatter(latest["gdp_per_capita"], latest["people_fully_vaccinated_per_hundred"],
+            alpha=0.6, c="#3f72af")
+plt.xscale("log")
+plt.xlabel("GDP per Capita (log scale)")
+plt.ylabel("Fully Vaccinated (% of population)")
+plt.title("GDP per Capita vs Full Vaccination Rate (Latest Available per Country)")
+plt.tight_layout()
+plt.savefig("04_gdp_vs_vaccination.png")
+plt.close()
+
+print("\nAll done. Charts saved, cleaned data saved, summary stats saved.")
