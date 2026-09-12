@@ -1,4 +1,4 @@
-# COVID-19 Data Analysis – Week 1 & Week 2
+# COVID-19 Data Analysis – Week 1 & Week 1
 
 ## Project Overview
 
