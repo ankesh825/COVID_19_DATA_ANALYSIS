@@ -1,194 +1,341 @@
-# Empirical Evaluation of Digital Product Interventions: A Multi-Factor Hypothesis Testing & Inferential Statistical Analysis
+# 📊 Data Science with Python — YuvaIntern Internship
 
-[![Python 3.11](https://img.shields.io/badge/Python-3.11-3776AB?logo=python&logoColor=white)](https://www.python.org/)
-[![SciPy](https://img.shields.io/badge/SciPy-1.17+-0054A6?logo=scipy&logoColor=white)](https://scipy.org/)
-[![Statsmodels](https://img.shields.io/badge/Statsmodels-0.15+-4C72B0)](https://www.statsmodels.org/)
-[![Pandas](https://img.shields.io/badge/Pandas-3.0+-150458?logo=pandas&logoColor=white)](https://pandas.pydata.org/)
-[![Report](https://img.shields.io/badge/Report-DOCX_1.45MB-blue?logo=microsoftword&logoColor=white)](./report/Week3_Statistical_Analysis_Report.docx)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+A practical **Data Science and Advanced Python Analytics** project completed as part of my **YuvaIntern / NSDC Virtual Data Science with Python Apprentice Internship**.
 
-A rigorous, end-to-end inferential statistical analysis and hypothesis testing study investigating the impact of product interventions, device characteristics, acquisition channels, and personalized retention onboarding on e-commerce user engagement and revenue.
+This repository contains my work across multiple internship milestones, covering:
 
----
+* Data Acquisition & Cleaning
+* Exploratory Data Analysis (EDA)
+* Advanced Data Visualization
+* Statistical Analysis
+* Hypothesis Testing
+* Data Interpretation
+* Python-based Reproducible Analysis
 
-## 📋 Table of Contents
-1. [Executive Summary](#-executive-summary)
-2. [Formulated Hypotheses Battery](#-formulated-hypotheses-battery)
-3. [Dataset Architecture & Exploratory Analysis](#-dataset-architecture--exploratory-analysis)
-4. [Statistical Methodology & Diagnostics](#-statistical-methodology--diagnostics)
-5. [Key Inferential Findings & Visualizations](#-key-inferential-findings--visualizations)
-   - [Hypothesis 1: Revenue Impact (Welch's t-Test & Mann-Whitney U)](#hypothesis-1-revenue-impact-on-average-order-value-aov)
-   - [Hypothesis 2: Device Conversion Independence (Pearson Chi-Square)](#hypothesis-2-device-category-vs-conversion-independence)
-   - [Hypothesis 3: Marketing Channel Heterogeneity (One-Way ANOVA & Tukey HSD)](#hypothesis-3-marketing-channel-impact-on-session-duration)
-   - [Hypothesis 4: Customer Retention Dynamics (Paired t-Test & Wilcoxon Signed-Rank)](#hypothesis-4-within-subject-customer-loyalty-intervention)
-6. [Hypothesis Validation Matrix](#-hypothesis-validation-matrix)
-7. [Repository Structure](#-repository-structure)
-8. [Installation & Reproduction Guide](#-installation--reproduction-guide)
+The project demonstrates how raw datasets can be converted into meaningful insights using Python and statistical techniques.
 
 ---
 
-## 🚀 Executive Summary
+## 👨‍💻 About the Project
 
-Modern e-commerce enterprises rely on controlled experimentation (A/B testing) to make capital and engineering decisions. This study applies classical parametric and non-parametric hypothesis testing frameworks across $N = 3,000$ user sessions to evaluate key platform initiatives.
-
-**Core Findings:**
-- **AOV Uplift ($+\$6.55$):** Treatment checkout flow yielded a statistically significant increase in Average Order Value ($t(472.4) = 3.32, p = 9.56 \times 10^{-4}$, Cohen's $d = 0.30$), reinforced by non-parametric Mann-Whitney U ($p = 2.40 \times 10^{-3}$).
-- **Severe Mobile Friction:** Conversion rate is strongly dependent on device type ($\chi^2(2) = 20.98, p = 2.77 \times 10^{-5}$, Cramér's $V = 0.084$), with mobile converting at only $13.68\%$ (residual $-2.79$) versus desktop at $20.06\%$ (residual $+2.87$).
-- **Channel Engagement Heterogeneity:** Acquisition channels drive massive variance in on-site dwell time (One-Way ANOVA $F(3, 2996) = 402.37, p < 10^{-100}, \eta^2 = 0.287$). Email and Organic search generate over $2\times$ the session duration of Social Media.
-- **Loyalty Program Success:** Personalized onboarding generated an average within-subject gain of $+1.34$ points on a 10-point satisfaction scale ($t(525) = 35.16, p = 4.26 \times 10^{-140}$, Cohen's $d_z = 1.53$).
+**Student:** Ankesh
+**Internship Track:** Virtual Data Science with Python Apprentice Intern
+**Domain:** Data Science & Advanced Python Analytics
+**Tools:** Python, Pandas, NumPy, Matplotlib, Seaborn, SciPy, Statsmodels
+**Repository:** `COVID_19_DATA_ANALYSIS`
 
 ---
 
-## 🎯 Formulated Hypotheses Battery
+# 📌 Internship Work Overview
 
-| Hypothesis Ref. | Target Variable & Metric | Null Hypothesis ($H_0$) | Alternative Hypothesis ($H_1$) | Statistical Test |
-| :--- | :--- | :--- | :--- | :--- |
-| **$H_1$ (Revenue)** | Average Order Value (AOV in USD) | $H_{0,1}: \mu_T = \mu_C$ (No difference in mean checkout value) | $H_{1,1}: \mu_T \neq \mu_C$ (Treatment significantly alters checkout value) | Welch's Two-Sample $t$-test & Mann-Whitney U |
-| **$H_2$ (Conversion)** | Conversion Status (0/1) vs Device | $H_{0,2}: P(\text{Conv} \mid \text{Device}) = P(\text{Conv})$ (Conversion is independent) | $H_{1,2}: P(\text{Conv} \mid \text{Device}) \neq P(\text{Conv})$ (Conversion is dependent) | Pearson's $\chi^2$ Test of Independence |
-| **$H_3$ (Engagement)** | Session Duration (Mins) vs Channel | $H_{0,3}: \mu_{\text{Email}} = \mu_{\text{Org}} = \mu_{\text{Paid}} = \mu_{\text{Soc}}$ | $H_{1,3}: \exists i, j \text{ s.t. } \mu_i \neq \mu_j$ | One-Way ANOVA & Tukey HSD Post-Hoc |
-| **$H_4$ (Retention)** | Within-Subject Loyalty Score (1–10) | $H_{0,4}: \mu_{\text{Difference}} = 0$ (Zero shift post-intervention) | $H_{1,4}: \mu_{\text{Difference}} \neq 0$ (Significant shift post-intervention) | Paired Samples $t$-test & Wilcoxon Signed-Rank |
+The repository contains work from different internship weeks.
 
----
+| Week       | Task                                       | Main Focus                                                         | Dataset / Domain                |
+| ---------- | ------------------------------------------ | ------------------------------------------------------------------ | ------------------------------- |
+| **Week 1** | Data Acquisition, Cleaning & EDA           | Data cleaning, missing values, statistics and exploratory analysis | OWID COVID-19 / Public Health   |
+| **Week 2** | Advanced Data Visualization & Storytelling | Trends, comparisons, patterns and visual storytelling              | WHO COVID-19 / Public Health    |
+| **Week 3** | Statistical Analysis & Hypothesis Testing  | t-tests, Chi-Square, ANOVA, paired testing and effect sizes        | E-commerce Experimental Dataset |
 
-## 📊 Dataset Architecture & Exploratory Analysis
-
-The study operates on a balanced experimental dataset of $N = 3,000$ unique visitor sessions:
-- **Control Group:** $n = 1,485$ ($49.5\%$), legacy checkout and recommendations.
-- **Treatment Group:** $n = 1,515$ ($50.5\%$), machine-learning recommendations and one-page checkout.
-- **Global Conversion Rate:** $16.47\%$ ($494$ total orders; Control $= 14.21\%$, Treatment $= 18.68\%$, an absolute uplift of $+4.47\%$).
-- **Device Traffic Shares:** Mobile ($55.3\%$), Desktop ($35.1\%$), Tablet ($9.6\%$).
-- **Marketing Channels:** Organic Search ($30.9\%$), Paid Search ($26.8\%$), Social Media ($23.2\%$), Email Campaign ($19.1\%$).
+> **Important:** Week 1–2 focus on COVID-19 public-health data, while Week 3 uses a separate curated e-commerce experimental dataset specifically designed for statistical hypothesis testing.
 
 ---
 
-## 🔬 Statistical Methodology & Diagnostics
+# 🦠 Week 1 — Data Acquisition, Cleaning and Exploratory Analysis
 
-Before executing parametric inference, strict diagnostic assumptions were validated:
-1. **Normality:** Shapiro-Wilk test, D'Agostino-Pearson omnibus test, and Q-Q plots.
-2. **Homoscedasticity:** Levene's test centered at the median.
-3. **Robustness:** Welch-Satterthwaite degrees of freedom correction applied where variances could diverge.
-4. **Post-Hoc Multi-Comparisons:** Tukey HSD controlling family-wise error rate ($\alpha_{\text{FW}} = 0.05$).
-5. **Effect Sizes:** Cohen's $d$, Cramér's $V$, and Eta-Squared ($\eta^2$).
+## Objective
 
----
+The first task focused on working with a large real-world dataset and performing a complete **Exploratory Data Analysis (EDA)** workflow.
 
-## 📈 Key Inferential Findings & Visualizations
+The **Our World in Data (OWID) COVID-19 dataset** was selected because it contains country-level information about:
 
-### Hypothesis 1: Revenue Impact on Average Order Value (AOV)
+* COVID-19 cases
+* COVID-19 deaths
+* Vaccination
+* Population
+* GDP per capita
+* Median age
+* Life expectancy
+* Human Development Index
+* Healthcare indicators
 
-- **Control AOV:** Mean $= \$85.46$ (SD $= \$20.79$, Median $= \$87.84$, $n = 211$)
-- **Treatment AOV:** Mean $= \$92.01$ (SD $= \$22.79$, Median $= \$92.42$, $n = 283$)
-- **Mean Difference:** $+\$6.55$ USD ($\text{SE} = \$1.97$, $95\%\text{ CI}: [+\$2.68, +\$10.42]$)
-- **Welch's $t$-Test:** $t(472.4) = 3.324, p = 9.56 \times 10^{-4}$ (Reject $H_0$)
-- **Effect Size:** Cohen's $d = 0.298$ (Small-to-medium positive effect)
-- **Mann-Whitney U:** $U = 34,620.5, p = 2.40 \times 10^{-3}$ (Reject $H_0$)
+The original dataset contained:
 
-![Normality & Q-Q Plots](./visualizations/fig1_normality_qq_plots.png)
-*Figure 1: Distribution checks and Q-Q plots for Control and Treatment AOV.*
+**429,435 rows × 67 columns**
 
-![Hypothesis 1 AOV Test](./visualizations/fig2_hypothesis1_aov_ttest.png)
-*Figure 2: Violin and box plot comparison of Average Order Value with statistical significance bracket.*
+For analysis, relevant columns were selected and the dataset was cleaned.
 
----
+### Data Cleaning Performed
 
-### Hypothesis 2: Device Category vs Conversion Independence
+The following preprocessing steps were applied using Pandas:
 
-- **Desktop ($n = 1,052$):** $211$ Converted ($20.06\%$), Expected $= 173.2$, Std. Residual $= +2.87$
-- **Mobile ($n = 1,659$):** $227$ Converted ($13.68\%$), Expected $= 273.2$, Std. Residual $= -2.79$
-- **Tablet ($n = 289$):** $56$ Converted ($19.38\%$), Expected $= 47.6$, Std. Residual $= +1.22$
-- **Pearson's $\chi^2$ Test:** $\chi^2(2) = 20.985, p = 2.77 \times 10^{-5}$ (Reject $H_0$)
-- **Effect Size:** Cramér's $V = 0.084$
+1. Converted the `date` column into datetime format.
+2. Checked for duplicate records.
+3. Removed aggregate entries such as continent-level records.
+4. Filled missing daily case/death flow values appropriately.
+5. Forward-filled cumulative metrics within each country.
+6. Forward-filled/backward-filled static country attributes.
+7. Handled vaccination-related missing values.
+8. Prepared the cleaned dataset for further analysis.
 
-![Chi-Square Analysis](./visualizations/fig3_hypothesis2_chisquare.png)
-*Figure 3: Conversion rates by device hardware class alongside standardized Pearson residuals heatmap.*
+Final cleaned dataset:
 
----
+**402,910 rows × 19 columns**
 
-### Hypothesis 3: Marketing Channel Impact on Session Duration
+### Exploratory Analysis
 
-- **Email Campaign ($n = 573$):** Mean $= 6.71$ mins (SD $= 2.89$, Median $= 6.22$)
-- **Organic Search ($n = 927$):** Mean $= 5.54$ mins (SD $= 2.46$, Median $= 5.19$)
-- **Paid Search ($n = 804$):** Mean $= 3.89$ mins (SD $= 1.93$, Median $= 3.50$)
-- **Social Media ($n = 696$):** Mean $= 2.80$ mins (SD $= 1.52$, Median $= 2.50$)
-- **One-Way ANOVA:** $F(3, 2996) = 402.37, p < 10^{-100}$ (Reject $H_0$)
-- **Eta-Squared ($\eta^2$):** $0.287$ ($28.7\%$ of variance explained by channel)
-- **Tukey HSD:** All 6 pairwise contrasts reject equality at adjusted $p < 0.001$.
+The analysis included:
 
-![ANOVA & Tukey HSD](./visualizations/fig4_hypothesis3_anova.png)
-*Figure 4: Density profiles by acquisition channel and Tukey HSD 95% confidence intervals.*
+* Missing-value analysis
+* Summary statistics
+* COVID-19 case trends
+* Correlation analysis
+* GDP vs vaccination coverage analysis
 
----
+### Main Insights
 
-### Hypothesis 4: Within-Subject Customer Loyalty Intervention
+Some important patterns identified during EDA included:
 
-- **Sample Size:** $n = 526$ repeat customers in Treatment cohort
-- **Pre-Intervention Score:** Mean $= 5.70 / 10$ (SD $= 1.41$)
-- **Post-Intervention Score:** Mean $= 7.05 / 10$ (SD $= 1.61$)
-- **Mean Difference:** $+1.34$ points ($\text{SD}_{\text{diff}} = 0.88$, $95\%\text{ CI}: [+1.27, +1.42]$)
-- **Paired $t$-Test:** $t(525) = 35.16, p = 4.26 \times 10^{-140}$ (Reject $H_0$)
-- **Cohen's $d_z$:** $1.53$ (Very large within-subject effect)
-- **Wilcoxon Signed-Rank:** $W = 587.5, p = 2.15 \times 10^{-77}$ (Reject $H_0$)
-
-![Paired t-Test](./visualizations/fig5_hypothesis4_paired_ttest.png)
-*Figure 5: Pre vs post customer satisfaction trajectories and empirical difference score distribution.*
+* Median age showed a strong relationship with reported COVID-19 mortality.
+* HDI showed moderate relationships with mortality and vaccination coverage.
+* Higher-income countries generally showed higher reported vaccination coverage.
+* Major COVID-19 waves occurred at different times across countries.
+* Vaccination and healthcare-related variables contained substantial missing data.
 
 ---
 
-## 🏆 Hypothesis Validation Matrix
+# 📈 Week 2 — Advanced Data Visualization & Storytelling
 
-| Hypothesis Ref. | Statistical Test Executed | Test Statistic | $p$-Value | Effect Size | Empirical Verdict | Business Action |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **$H_1$: AOV Uplift** | Welch's Two-Sample $t$-Test | $t = 3.324$ | $9.56 \times 10^{-4}$ | Cohen's $d = 0.30$ | **Reject $H_0$** | Roll out ML checkout platform-wide |
-| **$H_2$: Device Independence** | Pearson $\chi^2$ Test | $\chi^2 = 20.985$ | $2.77 \times 10^{-5}$ | Cramér's $V = 0.084$ | **Reject $H_0$** | Overhaul mobile checkout UX |
-| **$H_3$: Channel Duration** | One-Way ANOVA & Tukey HSD | $F = 402.37$ | $< 10^{-100}$ | $\eta^2 = 0.287$ | **Reject $H_0$** | Shift CAC budget to Email & SEO |
-| **$H_4$: Loyalty Program** | Paired Samples $t$-Test | $t = 35.16$ | $4.26 \times 10^{-140}$ | Cohen's $d_z = 1.53$ | **Reject $H_0$** | Institutionalize personalized onboarding |
+## Objective
+
+The second task focused on transforming COVID-19 data into a **visual story** rather than only presenting numerical statistics.
+
+The analysis used WHO COVID-19 datasets covering cases, deaths, vaccination, age-specific deaths, mortality and hospitalization.
+
+The Week 2 report contains seven main visual analyses.
+
+### Visualizations Created
+
+#### 1. Global COVID-19 Cases and Deaths
+
+A time-series visualization was created to study the global pattern of reported COVID-19 cases and deaths.
+
+#### 2. COVID-19 Waves Across Countries
+
+Five major countries were compared:
+
+* India
+* United States
+* Brazil
+* United Kingdom
+* Germany
+
+A rolling average was used to make major waves easier to observe.
+
+#### 3. Vaccination Progress
+
+The vaccination dataset was analyzed to understand how reported primary-series vaccination coverage changed during the rollout period.
+
+#### 4. Country Vaccination Comparison
+
+The latest available vaccination coverage of selected countries was compared using a horizontal bar chart.
+
+#### 5. Age-Specific Deaths
+
+Reported COVID-19 deaths were grouped by age to understand which age categories contributed the largest number of reported deaths.
+
+#### 6. Mortality Comparison
+
+Countries with comparatively high reported COVID-19 deaths per 100,000 population were identified.
+
+#### 7. Healthcare Pressure
+
+Reported COVID-19 hospitalizations were analyzed over time for selected countries.
+
+The Week 2 Python workflow generates these seven visualization outputs from the WHO datasets.
+
+### Key Story
+
+The visual analysis showed that the pandemic did not follow exactly the same pattern in every country. Different countries experienced major reported waves at different times, while vaccination progress and healthcare pressure also varied across regions.
 
 ---
 
-## 📂 Repository Structure
+# 🧪 Week 3 — Statistical Analysis & Hypothesis Testing
 
-```text
-week3_statistical_analysis/
-├── data/
-│   ├── ecommerce_ab_test_data.csv       # Curated experimental dataset (3,000 records)
-│   └── statistical_test_results.json    # Full structured metrics, p-values & CIs
-├── report/
-│   └── Week3_Statistical_Analysis_Report.docx  # Publication-grade Word report (1.45 MB)
-├── scripts/
-│   ├── generate_dataset.py              # Reproducible synthetic dataset generator
-│   ├── run_statistical_tests.py         # Complete inferential statistical test battery
-│   └── build_word_report.py             # Formatted Word document compiler
-├── visualizations/
-│   ├── fig1_normality_qq_plots.png      # Normality and Q-Q distribution plots
-│   ├── fig2_hypothesis1_aov_ttest.png   # AOV violin/box plot with significance
-│   ├── fig3_hypothesis2_chisquare.png   # Device conversion rates & residuals heatmap
-│   ├── fig4_hypothesis3_anova.png       # ANOVA density curves & Tukey HSD forest plot
-│   └── fig5_hypothesis4_paired_ttest.png# Paired loyalty slopegraph & differences
-├── requirements.txt                     # Scientific dependencies
-├── submission_description.txt           # Portal submission description text (350+ words)
-└── README.md                            # Comprehensive technical documentation
-```
+## Objective
+
+Week 3 moved from **descriptive analysis to inferential statistics**.
+
+Instead of only asking:
+
+> "What does the data look like?"
+
+the analysis asks:
+
+> **"Is the observed difference or relationship statistically significant?"**
+
+A curated experimental dataset containing **3,000 user sessions** was used for this task. The dataset contains control/treatment information, conversion status, device category, marketing channel, session duration and customer loyalty scores.
+
+### Statistical Significance
+
+All hypothesis tests used:
+
+**Significance level (α) = 0.05**
+
+and a
+
+**95% Confidence Interval**
+
+framework.
 
 ---
 
-## 💻 Installation & Reproduction Guide
+# 🎯 Hypotheses Tested
 
-### 1. Prerequisites
-Ensure Python 3.10+ is installed on your system.
+Four hypotheses were formulated.
 
-### 2. Install Dependencies
-```bash
-pip install -r requirements.txt
-```
+| Hypothesis          | Question                                                           | Statistical Test                |
+| ------------------- | ------------------------------------------------------------------ | ------------------------------- |
+| **H1 — Revenue**    | Does the treatment checkout experience change Average Order Value? | Welch's t-test + Mann-Whitney U |
+| **H2 — Conversion** | Is conversion dependent on device category?                        | Pearson Chi-Square              |
+| **H3 — Engagement** | Does marketing channel affect session duration?                    | One-Way ANOVA + Tukey HSD       |
+| **H4 — Retention**  | Does personalized onboarding change loyalty scores?                | Paired t-test + Wilcoxon        |
 
-### 3. Reproduce Data, Analysis, and Report
-```bash
-# Step 1: Generate dataset
-python scripts/generate_dataset.py
+The formal null and alternative hypotheses are documented in the Week 3 report.
 
-# Step 2: Run all hypothesis tests and generate figures
-python scripts/run_statistical_tests.py
+---
 
-# Step 3: Build publication-grade Word document
-python scripts/build_word_report.py
-```
+# 🔬 Statistical Methodology
+
+Before interpreting the statistical tests, several diagnostic procedures were applied.
+
+### 1. Normality Testing
+
+Used:
+
+* Shapiro-Wilk test
+* D'Agostino-Pearson test
+* Q-Q plots
+
+### 2. Variance Testing
+
+**Levene's test** was used to examine variance homogeneity.
+
+### 3. Robust Testing
+
+Where appropriate, **Welch's t-test** was used instead of assuming equal variances.
+
+### 4. Non-Parametric Validation
+
+Non-parametric alternatives were also used:
+
+* Mann-Whitney U
+* Wilcoxon Signed-Rank
+
+### 5. Multiple Comparisons
+
+**Tukey's HSD** was used after ANOVA to compare individual marketing-channel pairs.
+
+### 6. Effect Sizes
+
+Statistical significance was supported with practical effect-size measures:
+
+* Cohen's d
+* Cohen's dz
+* Cramér's V
+* Eta-Squared (η²)
+
+These diagnostic and effect-size procedures are part of the Week 3 methodology.
+
+---
+
+# 📊 Week 3 Results
+
+## H1 — Average Order Value
+
+The Treatment group had a higher mean AOV than the Control group.
+
+| Group     | Mean AOV |
+| --------- | -------: |
+| Control   |   $85.46 |
+| Treatment |   $92.01 |
+
+Mean difference:
+
+**+$6.55**
+
+Welch's t-test:
+
+**t(472.4) = 3.324**
+
+**p = 9.56 × 10⁻⁴**
+
+Cohen's d:
+
+**0.298**
+
+95% Confidence Interval:
+
+**[$2.68, $10.42]**
+
+Since the p-value is below 0.05, the null hypothesis was rejected. The Mann-Whitney U test also supported the result.
+
+### Interpretation
+
+The Treatment group showed a statistically significant increase in Average Order Value compared with the Control group.
+
+---
+
+## H2 — Device Category and Conversion
+
+Conversion rates were compared across:
+
+* Desktop
+* Mobile
+* Tablet
+
+| Device  | Conversion Rate |
+| ------- | --------------: |
+| Desktop |          20.06% |
+| Mobile  |          13.68% |
+| Tablet  |          19.38% |
+
+Pearson Chi-Square:
+
+**χ²(2) = 20.985**
+
+**p = 2.77 × 10⁻⁵**
+
+Cramér's V:
+
+**0.084**
+
+The null hypothesis of independence was rejected.
+
+### Interpretation
+
+The analysis indicates that conversion behavior was statistically associated with device category, with mobile users showing a lower observed conversion rate than desktop users.
+
+---
+
+## H3 — Marketing Channel and Session Duration
+
+Four acquisition channels were compared:
+
+| Channel        | Mean Session Duration |
+| -------------- | --------------------: |
+| Email          |              6.71 min |
+| Organic Search |              5.54 min |
+| Paid Search    |              3.89 min |
+| Social Media   |              2.80 min |
+
+One-Way ANOVA:
+
+**F(3, 2996) = 402.37**
+
+**p < 10⁻¹⁰⁰**
+
+Eta-Squared:
+
+**η² = 0.287**
+
+Tukey's HSD found all six pairwise channel comparisons statistically significant at adjusted p < 0.001.
