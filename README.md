@@ -339,3 +339,342 @@ Eta-Squared:
 **η² = 0.287**
 
 Tukey's HSD found all six pairwise channel comparisons statistically significant at adjusted p < 0.001.
+
+### Interpretation
+
+Session duration differed significantly across acquisition channels, with Email and Organic Search showing the highest average session durations.
+
+---
+
+## H4 — Customer Loyalty Before and After Intervention
+
+A paired analysis was conducted on **526 repeat customers**.
+
+| Measurement         | Mean Score |
+| ------------------- | ---------: |
+| Before Intervention |  5.70 / 10 |
+| After Intervention  |  7.05 / 10 |
+
+Mean improvement:
+
+**+1.34 points**
+
+95% CI:
+
+**[+1.27, +1.42]**
+
+Paired t-test:
+
+**t(525) = 35.16**
+
+**p = 4.26 × 10⁻¹⁴⁰**
+
+Cohen's dz:
+
+**1.53**
+
+The Wilcoxon Signed-Rank test also supported the result.
+
+### Interpretation
+
+The post-intervention loyalty scores were significantly higher than the pre-intervention scores in this sample.
+
+---
+
+# 🏆 Hypothesis Validation Summary
+
+| Hypothesis       | Test           |   p-value | Effect Size | Decision      |
+| ---------------- | -------------- | --------: | ----------: | ------------- |
+| **H1 — AOV**     | Welch's t-test |  9.56e-04 |    d = 0.30 | **Reject H₀** |
+| **H2 — Device**  | Chi-Square     |  2.77e-05 |   V = 0.084 | **Reject H₀** |
+| **H3 — Channel** | ANOVA          |  < 1e-100 |  η² = 0.287 | **Reject H₀** |
+| **H4 — Loyalty** | Paired t-test  | 4.26e-140 |   dz = 1.53 | **Reject H₀** |
+
+All four hypotheses produced statistically significant results at **α = 0.05**.
+
+---
+
+# 🖼️ Week 3 Visualizations
+
+The statistical analysis is supported by five major visualizations:
+
+1. **Normality and Q-Q plots**
+2. **AOV Control vs Treatment**
+3. **Device Conversion and Chi-Square Analysis**
+4. **ANOVA and Tukey HSD**
+5. **Pre vs Post Loyalty Analysis**
+
+These visualizations help connect the numerical test results with the underlying distributions and group differences.
+
+---
+
+# 🛠️ Technologies Used
+
+### Programming
+
+* Python 3
+* Pandas
+* NumPy
+
+### Visualization
+
+* Matplotlib
+* Seaborn
+
+### Statistical Analysis
+
+* SciPy
+* Statsmodels
+
+### Documentation
+
+* Microsoft Word
+* Markdown
+* GitHub
+
+---
+
+# 📂 Repository Structure
+
+```text
+COVID_19_DATA_ANALYSIS/
+│
+├── README.md
+├── requirements.txt
+│
+├── Week_1_Data Acquisition, Cleaning, and Exploratory Analysis.python
+├── Week2 Python code .py
+│
+├── Week1_Data_Analysis_Report_humanized.docx
+├── Week2_Advanced_COVID_Data_Storytelling_Report_FINAL.docx
+│
+├── Week3_Statistical_Analysis_Report.docx
+├── run_statistical_tests.py
+├── generate_dataset.py
+├── build_word_report.py
+├── ecommerce_ab_test_data.csv
+├── statistical_test_results.json
+├── submission_description.txt
+│
+├── fig1_normality_qq_plots.png
+├── fig2_hypothesis1_aov_ttest.png
+├── fig3_hypothesis2_chisquare.png
+├── fig4_hypothesis3_anova.png
+└── fig5_hypothesis4_paired_ttest.png
+```
+
+The repository currently contains the Week 1/2 COVID analysis material along with the Week 3 statistical-analysis files and generated visualizations.
+
+---
+
+# ▶️ How to Run the Project
+
+## 1. Clone the Repository
+
+```bash
+git clone https://github.com/ankesh825/COVID_19_DATA_ANALYSIS.git
+cd COVID_19_DATA_ANALYSIS
+```
+
+## 2. Install Required Libraries
+
+```bash
+pip install -r requirements.txt
+```
+
+## 3. Run Week 1
+
+```bash
+python "Week_1_Data Acquisition, Cleaning, and Exploratory Analysis.python"
+```
+
+## 4. Run Week 2
+
+```bash
+python "Week2 Python code .py"
+```
+
+## 5. Run Week 3 Statistical Analysis
+
+```bash
+python run_statistical_tests.py
+```
+
+If the dataset needs to be regenerated:
+
+```bash
+python generate_dataset.py
+```
+
+The Week 3 workflow also includes a script for building the Word report:
+
+```bash
+python build_word_report.py
+```
+
+---
+
+# 📚 Key Statistical Concepts Used
+
+### Hypothesis Testing
+
+A statistical method used to determine whether the observed evidence is strong enough to reject a null hypothesis.
+
+### Null Hypothesis (H₀)
+
+The default assumption that there is no statistically significant difference or relationship.
+
+### Alternative Hypothesis (H₁)
+
+The hypothesis that a statistically significant difference or relationship exists.
+
+### p-value
+
+The probability of observing results at least as extreme as those found, assuming the null hypothesis is true.
+
+### Confidence Interval
+
+A range used to estimate the plausible values of a population parameter.
+
+### Effect Size
+
+Measures the practical magnitude of an observed difference or relationship.
+
+### Type I Error
+
+Rejecting a true null hypothesis.
+
+### Type II Error
+
+Failing to reject a false null hypothesis.
+
+---
+
+# ⚠️ Limitations
+
+The analysis should be interpreted within the limitations of the datasets and study design.
+
+### Week 1–2
+
+COVID-19 reporting differs between countries because of differences in:
+
+* Testing capacity
+* Reporting systems
+* Healthcare infrastructure
+* Vaccination reporting
+* Data completeness
+
+Therefore, reported values should not automatically be interpreted as the exact true number of infections or deaths.
+
+### Week 3
+
+The Week 3 dataset is a curated experimental dataset used for statistical-analysis practice.
+
+Statistical significance does not automatically mean that an effect is large or practically important. This is why effect sizes and confidence intervals were included.
+
+---
+
+# 🎓 Learning Outcomes
+
+Through these tasks, I developed practical experience in:
+
+* Collecting real-world datasets
+* Cleaning large datasets with Pandas
+* Handling missing values
+* Performing EDA
+* Creating meaningful visualizations
+* Finding trends and patterns
+* Formulating statistical hypotheses
+* Selecting appropriate statistical tests
+* Understanding p-values
+* Calculating confidence intervals
+* Measuring effect sizes
+* Performing post-hoc analysis
+* Interpreting statistical results
+* Creating reproducible Python workflows
+* Documenting Data Science projects professionally
+
+---
+
+# 📌 Internship Progress
+
+```text
+Week 1
+Data Acquisition
+       ↓
+Data Cleaning
+       ↓
+Exploratory Data Analysis
+       ↓
+Week 2
+Advanced Visualization
+       ↓
+Data Storytelling
+       ↓
+Public-Health Insights
+       ↓
+Week 3
+Hypothesis Formulation
+       ↓
+Statistical Testing
+       ↓
+p-values + Confidence Intervals
+       ↓
+Effect Size Analysis
+       ↓
+Statistical Conclusions
+```
+
+---
+
+# 📖 References
+
+### Week 1
+
+**Our World in Data — COVID-19 Dataset**
+
+https://github.com/owid/covid-19-data
+
+**COVID-19 Pandemic Background**
+
+https://en.wikipedia.org/wiki/COVID-19_pandemic
+
+### Week 2
+
+WHO COVID-19 global datasets were used for reported cases, deaths, vaccination, age-specific mortality and hospitalization analysis.
+
+### Week 3
+
+Python scientific computing ecosystem:
+
+* Pandas
+* NumPy
+* SciPy
+* Statsmodels
+* Matplotlib
+* Seaborn
+
+---
+
+# 👨‍💻 Author
+
+**Ankesh**
+
+Data Science & Python Analytics Intern
+
+GitHub:
+https://github.com/ankesh825
+
+---
+
+## ⭐ Project Summary
+
+This repository represents my progression from **raw data to statistical evidence**.
+
+The first stage focused on acquiring and cleaning data, the second stage focused on communicating patterns through visualization, and the third stage focused on determining whether observed differences were statistically significant.
+
+Together, these tasks demonstrate an end-to-end Data Science workflow:
+
+**Data → Cleaning → EDA → Visualization → Hypothesis → Statistical Testing → Interpretation → Insights**
+
+---
