@@ -1,0 +1,253 @@
+{
+    "eda": {
+        "total_records": 3000,
+        "control_n": 1485,
+        "treatment_n": 1515,
+        "overall_conversion_rate": 0.16466666666666666,
+        "control_conversion_rate": 0.1420875420875421,
+        "treatment_conversion_rate": 0.1867986798679868,
+        "device_breakdown": {
+            "Mobile": 1659,
+            "Desktop": 1052,
+            "Tablet": 289
+        },
+        "channel_breakdown": {
+            "Organic Search": 927,
+            "Paid Search": 804,
+            "Social Media": 696,
+            "Email Campaign": 573
+        }
+    },
+    "hypothesis_1": {
+        "descriptives": {
+            "control_n": 211,
+            "control_mean": 85.4642654028436,
+            "control_std": 20.787934774668997,
+            "control_median": 87.84,
+            "control_iqr": 27.965000000000003,
+            "treatment_n": 283,
+            "treatment_mean": 92.01406360424029,
+            "treatment_std": 22.786704801222747,
+            "treatment_median": 92.42,
+            "treatment_iqr": 30.82499999999999
+        },
+        "diagnostics": {
+            "shapiro_control": {
+                "stat": 0.9936826327449294,
+                "p_value": 0.5115839626618464
+            },
+            "shapiro_treatment": {
+                "stat": 0.994599141120439,
+                "p_value": 0.4177880725860994
+            },
+            "levene_test": {
+                "stat": 1.7537674874064024,
+                "p_value": 0.18601866329983918
+            }
+        },
+        "welch_ttest": {
+            "t_stat": 3.323958243764746,
+            "df": 472.4415736423777,
+            "p_value_twotailed": 0.000956489373953923,
+            "p_value_onetailed": 0.0004782446869769615,
+            "mean_diff": 6.5497982013966976,
+            "se_diff": 1.9704814925648209,
+            "ci_95": [
+                2.677806097927543,
+                10.421790304865851
+            ],
+            "cohen_d": 0.2983168976518818
+        },
+        "mann_whitney": {
+            "u_stat": 34620.5,
+            "p_value": 0.0024041735328008736
+        }
+    },
+    "hypothesis_2": {
+        "contingency_observed": {
+            "Abandoned": {
+                "Desktop": 841,
+                "Mobile": 1432,
+                "Tablet": 233
+            },
+            "Converted": {
+                "Desktop": 211,
+                "Mobile": 227,
+                "Tablet": 56
+            }
+        },
+        "contingency_expected": {
+            "Abandoned": {
+                "Desktop": 878.77,
+                "Mobile": 1385.82,
+                "Tablet": 241.41
+            },
+            "Converted": {
+                "Desktop": 173.23,
+                "Mobile": 273.18,
+                "Tablet": 47.59
+            }
+        },
+        "chi2_stat": 20.984838800718222,
+        "dof": 2,
+        "p_value": 2.7745985348635028e-05,
+        "cramers_v": 0.08363579536840714,
+        "std_residuals": {
+            "Abandoned": {
+                "Desktop": -1.274,
+                "Mobile": 1.241,
+                "Tablet": -0.541
+            },
+            "Converted": {
+                "Desktop": 2.87,
+                "Mobile": -2.794,
+                "Tablet": 1.219
+            }
+        },
+        "device_rates": [
+            {
+                "device_category": "Desktop",
+                "count": 1052,
+                "mean": 0.2005703422053232,
+                "conversion_pct": 20.05703422053232
+            },
+            {
+                "device_category": "Mobile",
+                "count": 1659,
+                "mean": 0.13682941531042797,
+                "conversion_pct": 13.682941531042797
+            },
+            {
+                "device_category": "Tablet",
+                "count": 289,
+                "mean": 0.19377162629757785,
+                "conversion_pct": 19.377162629757784
+            }
+        ]
+    },
+    "hypothesis_3": {
+        "levene_homoscedasticity": {
+            "stat": 72.349752926103,
+            "p_value": 3.58521493803758e-45
+        },
+        "f_statistic": 402.36866300252393,
+        "df_between": 3,
+        "df_within": 2996,
+        "p_value": 1.3213698233829149e-219,
+        "eta_squared": 0.287193801956109,
+        "channel_descriptives": {
+            "Email Campaign": {
+                "count": 573,
+                "mean": 6.711,
+                "std": 2.893,
+                "median": 6.22,
+                "iqr": 3.87
+            },
+            "Organic Search": {
+                "count": 927,
+                "mean": 5.542,
+                "std": 2.455,
+                "median": 5.19,
+                "iqr": 3.145
+            },
+            "Paid Search": {
+                "count": 804,
+                "mean": 3.892,
+                "std": 1.931,
+                "median": 3.495,
+                "iqr": 2.352
+            },
+            "Social Media": {
+                "count": 696,
+                "mean": 2.795,
+                "std": 1.517,
+                "median": 2.5,
+                "iqr": 1.9
+            }
+        },
+        "tukey_hsd": [
+            {
+                "group1": "Email Campaign",
+                "group2": "Organic Search",
+                "meandiff": -1.1693,
+                "p_adj": 0.0,
+                "lower": -1.4745,
+                "upper": -0.864,
+                "reject": true
+            },
+            {
+                "group1": "Email Campaign",
+                "group2": "Paid Search",
+                "meandiff": -2.8193,
+                "p_adj": 0.0,
+                "lower": -3.1333,
+                "upper": -2.5052,
+                "reject": true
+            },
+            {
+                "group1": "Email Campaign",
+                "group2": "Social Media",
+                "meandiff": -3.9168,
+                "p_adj": 0.0,
+                "lower": -4.2408,
+                "upper": -3.5928,
+                "reject": true
+            },
+            {
+                "group1": "Organic Search",
+                "group2": "Paid Search",
+                "meandiff": -1.65,
+                "p_adj": 0.0,
+                "lower": -1.9268,
+                "upper": -1.3732,
+                "reject": true
+            },
+            {
+                "group1": "Organic Search",
+                "group2": "Social Media",
+                "meandiff": -2.7476,
+                "p_adj": 0.0,
+                "lower": -3.0356,
+                "upper": -2.4595,
+                "reject": true
+            },
+            {
+                "group1": "Paid Search",
+                "group2": "Social Media",
+                "meandiff": -1.0976,
+                "p_adj": 0.0,
+                "lower": -1.3949,
+                "upper": -0.8002,
+                "reject": true
+            }
+        ]
+    },
+    "hypothesis_4": {
+        "sample_size_n": 526,
+        "pre_score_mean": 5.7034220532319395,
+        "pre_score_std": 1.41133765681065,
+        "post_score_mean": 7.0456273764258555,
+        "post_score_std": 1.611213646656741,
+        "mean_difference": 1.3422053231939164,
+        "std_difference": 0.8754895684294317,
+        "se_difference": 0.03817315921515154,
+        "shapiro_normality_diff": {
+            "stat": 0.8884180138996675,
+            "p_value": 4.595100512896744e-19
+        },
+        "paired_ttest": {
+            "t_stat": 35.160970451226724,
+            "df": 525,
+            "p_value": 4.257205352127086e-140,
+            "ci_95": [
+                1.2672144246840173,
+                1.4171962217038154
+            ],
+            "cohen_dz": 1.5330911658967459
+        },
+        "wilcoxon_test": {
+            "w_stat": 587.5,
+            "p_value": 2.146205377845647e-77
+        }
+    }
+}
