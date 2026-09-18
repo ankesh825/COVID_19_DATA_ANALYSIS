@@ -1,4 +1,4 @@
-# 📊 Data Science with Python —  Internship
+# 📊 Data Science with Python — YuvaIntern Internship
 
 A practical **Data Science and Advanced Python Analytics** project completed as part of my **YuvaIntern / NSDC Virtual Data Science with Python Apprentice Internship**.
 
