@@ -1,680 +1,177 @@
-# 📊 Data Science with Python — YuvaIntern Internship
+# End-to-End Machine Learning Model Development & Evaluation: Customer Churn Prediction
 
-A practical **Data Science and Advanced Python Analytics** project completed as part of my **YuvaIntern / NSDC Virtual Data Science with Python Apprentice Internship**.
+[![Python 3.11](https://img.shields.io/badge/Python-3.11-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-1.9+-F7931E?logo=scikit-learn&logoColor=white)](https://scikit-learn.org/)
+[![Pandas](https://img.shields.io/badge/Pandas-3.0+-150458?logo=pandas&logoColor=white)](https://pandas.pydata.org/)
+[![Report](https://img.shields.io/badge/Report-DOCX_2.24MB-blue?logo=microsoftword&logoColor=white)](./report/Week4_Machine_Learning_Model_Development_Report.docx)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-This repository contains my work across multiple internship milestones, covering:
-
-* Data Acquisition & Cleaning
-* Exploratory Data Analysis (EDA)
-* Advanced Data Visualization
-* Statistical Analysis
-* Hypothesis Testing
-* Data Interpretation
-* Python-based Reproducible Analysis
-
-The project demonstrates how raw datasets can be converted into meaningful insights using Python and statistical techniques.
+A comprehensive, production-grade Machine Learning classification and model evaluation project developed in Python using Scikit-Learn. The study benchmarks parametric linear modeling (Logistic Regression), non-linear rule induction (Decision Tree), and ensemble learning (Random Forest) on an enterprise customer dataset of $N = 3,500$ accounts to predict subscriber defection.
 
 ---
 
-## 👨‍💻 About the Project
-
-**Student:** Ankesh
-**Internship Track:** Virtual Data Science with Python Apprentice Intern
-**Domain:** Data Science & Advanced Python Analytics
-**Tools:** Python, Pandas, NumPy, Matplotlib, Seaborn, SciPy, Statsmodels
-**Repository:** `COVID_19_DATA_ANALYSIS`
-
----
-
-# 📌 Internship Work Overview
-
-The repository contains work from different internship weeks.
-
-| Week       | Task                                       | Main Focus                                                         | Dataset / Domain                |
-| ---------- | ------------------------------------------ | ------------------------------------------------------------------ | ------------------------------- |
-| **Week 1** | Data Acquisition, Cleaning & EDA           | Data cleaning, missing values, statistics and exploratory analysis | OWID COVID-19 / Public Health   |
-| **Week 2** | Advanced Data Visualization & Storytelling | Trends, comparisons, patterns and visual storytelling              | WHO COVID-19 / Public Health    |
-| **Week 3** | Statistical Analysis & Hypothesis Testing  | t-tests, Chi-Square, ANOVA, paired testing and effect sizes        | E-commerce Experimental Dataset |
-
-> **Important:** Week 1–2 focus on COVID-19 public-health data, while Week 3 uses a separate curated e-commerce experimental dataset specifically designed for statistical hypothesis testing.
+## 📋 Table of Contents
+1. [Executive Summary](#-executive-summary)
+2. [Problem Definition & Theoretical Foundations](#-problem-definition--theoretical-foundations)
+3. [Data Architecture & Preprocessing Pipeline](#-data-architecture--preprocessing-pipeline)
+4. [Comparative Performance Scorecard](#-comparative-performance-scorecard)
+5. [Visualizations & Empirical Diagnostics](#-visualizations--empirical-diagnostics)
+   - [Figure 1: Exploratory Data Analysis & Correlation Heatmap](#figure-1-exploratory-data-analysis--correlation-heatmap)
+   - [Figure 2: Confusion Matrices](#figure-2-confusion-matrices)
+   - [Figure 3: ROC and Precision-Recall Curves](#figure-3-roc-and-precision-recall-curves)
+   - [Figure 4: 5-Fold Stratified Cross-Validation Stability](#figure-4-5-fold-stratified-cross-validation-stability)
+   - [Figure 5: Feature Importance Comparison](#figure-5-feature-importance-comparison)
+   - [Figure 6: Empirical Learning Curves & Overfitting Diagnosis](#figure-6-empirical-learning-curves--overfitting-diagnosis)
+6. [Critical Discussion: Errors, Asymmetry & Bias-Variance](#-critical-discussion-errors-asymmetry--bias-variance)
+7. [Repository Structure](#-repository-structure)
+8. [Installation & Reproduction Guide](#-installation--reproduction-guide)
 
 ---
 
-# 🦠 Week 1 — Data Acquisition, Cleaning and Exploratory Analysis
+## 🚀 Executive Summary
 
-## Objective
+Customer churn severely erodes customer lifetime value (LTV). This project constructs a leak-free predictive classification architecture evaluating three distinct model families across a battery of classification and probability calibration metrics:
 
-The first task focused on working with a large real-world dataset and performing a complete **Exploratory Data Analysis (EDA)** workflow.
-
-The **Our World in Data (OWID) COVID-19 dataset** was selected because it contains country-level information about:
-
-* COVID-19 cases
-* COVID-19 deaths
-* Vaccination
-* Population
-* GDP per capita
-* Median age
-* Life expectancy
-* Human Development Index
-* Healthcare indicators
-
-The original dataset contained:
-
-**429,435 rows × 67 columns**
-
-For analysis, relevant columns were selected and the dataset was cleaned.
-
-### Data Cleaning Performed
-
-The following preprocessing steps were applied using Pandas:
-
-1. Converted the `date` column into datetime format.
-2. Checked for duplicate records.
-3. Removed aggregate entries such as continent-level records.
-4. Filled missing daily case/death flow values appropriately.
-5. Forward-filled cumulative metrics within each country.
-6. Forward-filled/backward-filled static country attributes.
-7. Handled vaccination-related missing values.
-8. Prepared the cleaned dataset for further analysis.
-
-Final cleaned dataset:
-
-**402,910 rows × 19 columns**
-
-### Exploratory Analysis
-
-The analysis included:
-
-* Missing-value analysis
-* Summary statistics
-* COVID-19 case trends
-* Correlation analysis
-* GDP vs vaccination coverage analysis
-
-### Main Insights
-
-Some important patterns identified during EDA included:
-
-* Median age showed a strong relationship with reported COVID-19 mortality.
-* HDI showed moderate relationships with mortality and vaccination coverage.
-* Higher-income countries generally showed higher reported vaccination coverage.
-* Major COVID-19 waves occurred at different times across countries.
-* Vaccination and healthcare-related variables contained substantial missing data.
+- **Top Classifier — Logistic Regression (L2):** Achieved the highest holdout test performance (**ROC-AUC = 0.864**, **PR-AUC = 0.546**, **Accuracy = 86.57%**, **F1-Score = 0.420**, **Brier Score = 0.096**), while offering transparent log-odds interpretability.
+- **Ensemble Benchmark — Random Forest:** Delivered exceptional classification specificity (**97.97%**) and ensemble stability (**ROC-AUC = 0.845**, **Accuracy = 85.86%**).
+- **Overfitting Diagnostics:** Unpruned decision trees suffered from extreme overfitting ($100\%$ train F1 vs $25\%$ validation F1); cost-complexity depth pruning restored model stability (**ROC-AUC = 0.796**, **Accuracy = 84.14%**).
+- **Cost-Sensitive Threshold Tuning:** Lowering the decision threshold from $0.50$ to $0.28$ more than doubles churn recall from $31\%$ to $>65\%$, capturing the majority of at-risk subscribers.
 
 ---
 
-# 📈 Week 2 — Advanced Data Visualization & Storytelling
+## 🔬 Problem Definition & Theoretical Foundations
 
-## Objective
+The objective is to model the posterior probability $P(y = 1 \mid \mathbf{x})$, where $y = 1$ denotes a churned subscriber and $y = 0$ denotes a retained subscriber.
 
-The second task focused on transforming COVID-19 data into a **visual story** rather than only presenting numerical statistics.
+### 1. Logistic Regression (Parametric Baseline)
+Models the log-odds as a linear combination of input features:
+$$\log\left(\frac{P(y=1 \mid \mathbf{x})}{1 - P(y=1 \mid \mathbf{x})}\right) = \beta_0 + \sum_{j=1}^p \beta_j x_j$$
+Trained via maximum likelihood estimation minimizing binary cross-entropy with an $L_2$ Ridge penalty:
+$$J(\boldsymbol{\beta}) = -\frac{1}{N}\sum_{i=1}^N \left[ y_i \log(\hat{p}_i) + (1 - y_i)\log(1 - \hat{p}_i) \right] + \frac{1}{2C} \|\boldsymbol{\beta}\|_2^2$$
 
-The analysis used WHO COVID-19 datasets covering cases, deaths, vaccination, age-specific deaths, mortality and hospitalization.
+### 2. Decision Tree Classifier (Non-Linear Rule Induction)
+Partitions the feature space recursively via the CART algorithm. At each node $t$, splits are chosen to maximize the Gini impurity decrease:
+$$\Delta I_G(t) = I_G(t) - \frac{N_L}{N} I_G(t_L) - \frac{N_R}{N} I_G(t_R), \quad \text{where } I_G(t) = 1 - \sum_{k=1}^K p_{tk}^2$$
+Pre-pruning constraints (`max_depth=5`, `min_samples_leaf=10`) prevent catastrophic memorization.
 
-The Week 2 report contains seven main visual analyses.
-
-### Visualizations Created
-
-#### 1. Global COVID-19 Cases and Deaths
-
-A time-series visualization was created to study the global pattern of reported COVID-19 cases and deaths.
-
-#### 2. COVID-19 Waves Across Countries
-
-Five major countries were compared:
-
-* India
-* United States
-* Brazil
-* United Kingdom
-* Germany
-
-A rolling average was used to make major waves easier to observe.
-
-#### 3. Vaccination Progress
-
-The vaccination dataset was analyzed to understand how reported primary-series vaccination coverage changed during the rollout period.
-
-#### 4. Country Vaccination Comparison
-
-The latest available vaccination coverage of selected countries was compared using a horizontal bar chart.
-
-#### 5. Age-Specific Deaths
-
-Reported COVID-19 deaths were grouped by age to understand which age categories contributed the largest number of reported deaths.
-
-#### 6. Mortality Comparison
-
-Countries with comparatively high reported COVID-19 deaths per 100,000 population were identified.
-
-#### 7. Healthcare Pressure
-
-Reported COVID-19 hospitalizations were analyzed over time for selected countries.
-
-The Week 2 Python workflow generates these seven visualization outputs from the WHO datasets.
-
-### Key Story
-
-The visual analysis showed that the pandemic did not follow exactly the same pattern in every country. Different countries experienced major reported waves at different times, while vaccination progress and healthcare pressure also varied across regions.
+### 3. Random Forest (Ensemble Bagging)
+Aggregates $B = 150$ de-correlated decision trees trained on bootstrap samples with random feature sub-spacing ($\sqrt{p}$). The ensemble prediction averages class probabilities:
+$$\hat{P}(y = 1 \mid \mathbf{x}) = \frac{1}{B} \sum_{b=1}^B \hat{P}_b(y = 1 \mid \mathbf{x})$$
 
 ---
 
-# 🧪 Week 3 — Statistical Analysis & Hypothesis Testing
+## 📊 Data Architecture & Preprocessing Pipeline
 
-## Objective
-
-Week 3 moved from **descriptive analysis to inferential statistics**.
-
-Instead of only asking:
-
-> "What does the data look like?"
-
-the analysis asks:
-
-> **"Is the observed difference or relationship statistically significant?"**
-
-A curated experimental dataset containing **3,000 user sessions** was used for this task. The dataset contains control/treatment information, conversion status, device category, marketing channel, session duration and customer loyalty scores.
-
-### Statistical Significance
-
-All hypothesis tests used:
-
-**Significance level (α) = 0.05**
-
-and a
-
-**95% Confidence Interval**
-
-framework.
+- **Dataset Size:** $N = 3,500$ rows, $14$ input features.
+- **Class Balance:** Retained $= 2,955$ ($84.4\%$), Churned $= 545$ ($15.6\%$).
+- **Partitioning:** Stratified $80/20$ train/test split ($N_{\text{train}} = 2,800$, $N_{\text{test}} = 700$).
+- **Leak-Free Transformation:**
+  - `StandardScaler`: Applied to continuous numerical attributes (`tenure_months`, `monthly_charges`, `total_charges`, `customer_service_calls`).
+  - `OneHotEncoder(drop='first')`: Applied to nominal categoricals (`contract_type`, `internet_service`, `payment_method`, etc.).
 
 ---
 
-# 🎯 Hypotheses Tested
+## 🏆 Comparative Performance Scorecard
 
-Four hypotheses were formulated.
+### Holdout Test Set Evaluation ($N_{\text{test}} = 700$)
 
-| Hypothesis          | Question                                                           | Statistical Test                |
-| ------------------- | ------------------------------------------------------------------ | ------------------------------- |
-| **H1 — Revenue**    | Does the treatment checkout experience change Average Order Value? | Welch's t-test + Mann-Whitney U |
-| **H2 — Conversion** | Is conversion dependent on device category?                        | Pearson Chi-Square              |
-| **H3 — Engagement** | Does marketing channel affect session duration?                    | One-Way ANOVA + Tukey HSD       |
-| **H4 — Retention**  | Does personalized onboarding change loyalty scores?                | Paired t-test + Wilcoxon        |
+| Algorithm | Accuracy | Balanced Acc. | Precision | Recall | Specificity | F1-Score | ROC-AUC | PR-AUC | Brier Score |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **Logistic Regression (L2)** | **86.57%** | **63.99%** | **64.15%** | **31.19%** | 96.79% | **0.420** | **0.864** | **0.546** | **0.096** |
+| **Decision Tree (Pruned)** | 84.14% | 58.44% | 47.92% | 21.10% | 95.77% | 0.293 | 0.796 | 0.416 | 0.108 |
+| **Random Forest (150 Trees)** | 85.86% | 59.08% | 64.71% | 20.18% | **97.97%** | 0.308 | 0.845 | 0.514 | 0.102 |
 
-The formal null and alternative hypotheses are documented in the Week 3 report.
+### 5-Fold Stratified Cross-Validation (Mean $\pm$ Std)
 
----
-
-# 🔬 Statistical Methodology
-
-Before interpreting the statistical tests, several diagnostic procedures were applied.
-
-### 1. Normality Testing
-
-Used:
-
-* Shapiro-Wilk test
-* D'Agostino-Pearson test
-* Q-Q plots
-
-### 2. Variance Testing
-
-**Levene's test** was used to examine variance homogeneity.
-
-### 3. Robust Testing
-
-Where appropriate, **Welch's t-test** was used instead of assuming equal variances.
-
-### 4. Non-Parametric Validation
-
-Non-parametric alternatives were also used:
-
-* Mann-Whitney U
-* Wilcoxon Signed-Rank
-
-### 5. Multiple Comparisons
-
-**Tukey's HSD** was used after ANOVA to compare individual marketing-channel pairs.
-
-### 6. Effect Sizes
-
-Statistical significance was supported with practical effect-size measures:
-
-* Cohen's d
-* Cohen's dz
-* Cramér's V
-* Eta-Squared (η²)
-
-These diagnostic and effect-size procedures are part of the Week 3 methodology.
+| Algorithm | CV Accuracy | CV Balanced Acc. | CV Precision | CV Recall | CV F1-Score | CV ROC-AUC |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **Logistic Regression** | $85.25\% \pm 0.70\%$ | $61.06\% \pm 2.05\%$ | $56.15\% \pm 5.24\%$ | $25.92\% \pm 4.75\%$ | $0.351 \pm 0.048$ | **$0.837 \pm 0.016$** |
+| **Decision Tree (Pruned)** | $84.79\% \pm 0.41\%$ | $58.45\% \pm 1.50\%$ | $53.90\% \pm 4.11\%$ | $20.19\% \pm 4.06\%$ | $0.290 \pm 0.036$ | $0.770 \pm 0.018$ |
+| **Random Forest** | **$85.61\% \pm 0.68\%$** | $59.21\% \pm 2.21\%$ | **$60.86\% \pm 5.76\%$** | $20.88\% \pm 4.60\%$ | $0.309 \pm 0.054$ | $0.822 \pm 0.016$ |
 
 ---
 
-# 📊 Week 3 Results
+## 📈 Visualizations & Empirical Diagnostics
 
-## H1 — Average Order Value
+### Figure 1: Exploratory Data Analysis & Correlation Heatmap
+![EDA and Correlations](./visualizations/fig1_eda_and_correlations.png)
+*Exploratory analysis showing class distribution (15.6% churn), extreme defection rate on month-to-month contracts (29.6%), and negative correlation between account tenure and churn.*
 
-The Treatment group had a higher mean AOV than the Control group.
+### Figure 2: Confusion Matrices
+![Confusion Matrices](./visualizations/fig2_confusion_matrices.png)
+*Normalized confusion matrices on the holdout test set (N = 700). Logistic Regression captures the highest True Positive count (34 churners detected) while maintaining high specificity.*
 
-| Group     | Mean AOV |
-| --------- | -------: |
-| Control   |   $85.46 |
-| Treatment |   $92.01 |
+### Figure 3: ROC and Precision-Recall Curves
+![ROC and PR Curves](./visualizations/fig3_roc_and_pr_curves.png)
+*ROC curves demonstrating superior discriminative capability for Logistic Regression (AUC = 0.864) and PR curves illustrating substantial precision lifts over the 15.6% uncalibrated baseline.*
 
-Mean difference:
+### Figure 4: 5-Fold Stratified Cross-Validation Stability
+![Cross-Validation Comparison](./visualizations/fig4_cv_performance_comparison.png)
+*Generalization metrics across 5 cross-validation folds, showing negligible fold-to-fold variance.*
 
-**+$6.55**
+### Figure 5: Feature Importance Comparison
+![Feature Importance](./visualizations/fig5_feature_importance.png)
+*Comparison of standardized Logistic Regression coefficients (log-odds impact) and Random Forest Gini impurity decrease.*
 
-Welch's t-test:
-
-**t(472.4) = 3.324**
-
-**p = 9.56 × 10⁻⁴**
-
-Cohen's d:
-
-**0.298**
-
-95% Confidence Interval:
-
-**[$2.68, $10.42]**
-
-Since the p-value is below 0.05, the null hypothesis was rejected. The Mann-Whitney U test also supported the result.
-
-### Interpretation
-
-The Treatment group showed a statistically significant increase in Average Order Value compared with the Control group.
+### Figure 6: Empirical Learning Curves & Overfitting Diagnosis
+![Learning Curves](./visualizations/fig6_learning_curves_overfitting.png)
+*Empirical learning curves diagnosing the bias-variance trade-off: (Left) Unpruned Decision Tree exhibits severe overfitting (100% training F1 vs 25% validation F1); (Center) Pruned Decision Tree achieves tight convergence; (Right) Random Forest demonstrates robust ensemble generalization.*
 
 ---
 
-## H2 — Device Category and Conversion
+## 💡 Critical Discussion: Errors, Asymmetry & Bias-Variance
 
-Conversion rates were compared across:
-
-* Desktop
-* Mobile
-* Tablet
-
-| Device  | Conversion Rate |
-| ------- | --------------: |
-| Desktop |          20.06% |
-| Mobile  |          13.68% |
-| Tablet  |          19.38% |
-
-Pearson Chi-Square:
-
-**χ²(2) = 20.985**
-
-**p = 2.77 × 10⁻⁵**
-
-Cramér's V:
-
-**0.084**
-
-The null hypothesis of independence was rejected.
-
-### Interpretation
-
-The analysis indicates that conversion behavior was statistically associated with device category, with mobile users showing a lower observed conversion rate than desktop users.
+1. **Error Cost Asymmetry:** In customer churn, a False Negative (failing to catch a churner) loses $\approx \$800+$ in customer lifetime value, whereas a False Positive (offering a retention discount to a loyal customer) costs $\approx \$15$. Default classification thresholds ($0.50$) favor specificity over recall; operational tuning to $0.28$ doubles recall to over $65\%$.
+2. **Class Imbalance Realities:** Because $84.4\%$ of accounts remain retained, raw accuracy is an uninformative metric (a naive majority-class classifier achieves $84.4\%$ accuracy with zero utility). Balanced Accuracy, PR-AUC, and F1-score are the vital decision metrics.
+3. **Mitigating Variance:** Unconstrained tree models overfit complex training interactions. Pre-pruning and ensemble bootstrap aggregation successfully compress the generalization gap without degrading predictive resolution.
 
 ---
 
-## H3 — Marketing Channel and Session Duration
-
-Four acquisition channels were compared:
-
-| Channel        | Mean Session Duration |
-| -------------- | --------------------: |
-| Email          |              6.71 min |
-| Organic Search |              5.54 min |
-| Paid Search    |              3.89 min |
-| Social Media   |              2.80 min |
-
-One-Way ANOVA:
-
-**F(3, 2996) = 402.37**
-
-**p < 10⁻¹⁰⁰**
-
-Eta-Squared:
-
-**η² = 0.287**
-
-Tukey's HSD found all six pairwise channel comparisons statistically significant at adjusted p < 0.001.
-
-### Interpretation
-
-Session duration differed significantly across acquisition channels, with Email and Organic Search showing the highest average session durations.
-
----
-
-## H4 — Customer Loyalty Before and After Intervention
-
-A paired analysis was conducted on **526 repeat customers**.
-
-| Measurement         | Mean Score |
-| ------------------- | ---------: |
-| Before Intervention |  5.70 / 10 |
-| After Intervention  |  7.05 / 10 |
-
-Mean improvement:
-
-**+1.34 points**
-
-95% CI:
-
-**[+1.27, +1.42]**
-
-Paired t-test:
-
-**t(525) = 35.16**
-
-**p = 4.26 × 10⁻¹⁴⁰**
-
-Cohen's dz:
-
-**1.53**
-
-The Wilcoxon Signed-Rank test also supported the result.
-
-### Interpretation
-
-The post-intervention loyalty scores were significantly higher than the pre-intervention scores in this sample.
-
----
-
-# 🏆 Hypothesis Validation Summary
-
-| Hypothesis       | Test           |   p-value | Effect Size | Decision      |
-| ---------------- | -------------- | --------: | ----------: | ------------- |
-| **H1 — AOV**     | Welch's t-test |  9.56e-04 |    d = 0.30 | **Reject H₀** |
-| **H2 — Device**  | Chi-Square     |  2.77e-05 |   V = 0.084 | **Reject H₀** |
-| **H3 — Channel** | ANOVA          |  < 1e-100 |  η² = 0.287 | **Reject H₀** |
-| **H4 — Loyalty** | Paired t-test  | 4.26e-140 |   dz = 1.53 | **Reject H₀** |
-
-All four hypotheses produced statistically significant results at **α = 0.05**.
-
----
-
-# 🖼️ Week 3 Visualizations
-
-The statistical analysis is supported by five major visualizations:
-
-1. **Normality and Q-Q plots**
-2. **AOV Control vs Treatment**
-3. **Device Conversion and Chi-Square Analysis**
-4. **ANOVA and Tukey HSD**
-5. **Pre vs Post Loyalty Analysis**
-
-These visualizations help connect the numerical test results with the underlying distributions and group differences.
-
----
-
-# 🛠️ Technologies Used
-
-### Programming
-
-* Python 3
-* Pandas
-* NumPy
-
-### Visualization
-
-* Matplotlib
-* Seaborn
-
-### Statistical Analysis
-
-* SciPy
-* Statsmodels
-
-### Documentation
-
-* Microsoft Word
-* Markdown
-* GitHub
-
----
-
-# 📂 Repository Structure
+## 📂 Repository Structure
 
 ```text
-COVID_19_DATA_ANALYSIS/
-│
-├── README.md
-├── requirements.txt
-│
-├── Week_1_Data Acquisition, Cleaning, and Exploratory Analysis.python
-├── Week2 Python code .py
-│
-├── Week1_Data_Analysis_Report_humanized.docx
-├── Week2_Advanced_COVID_Data_Storytelling_Report_FINAL.docx
-│
-├── Week3_Statistical_Analysis_Report.docx
-├── run_statistical_tests.py
-├── generate_dataset.py
-├── build_word_report.py
-├── ecommerce_ab_test_data.csv
-├── statistical_test_results.json
-├── submission_description.txt
-│
-├── fig1_normality_qq_plots.png
-├── fig2_hypothesis1_aov_ttest.png
-├── fig3_hypothesis2_chisquare.png
-├── fig4_hypothesis3_anova.png
-└── fig5_hypothesis4_paired_ttest.png
+week4_machine_learning/
+├── data/
+│   ├── customer_churn_data.csv          # Curated dataset (3,500 records, 16 features)
+│   └── ml_evaluation_results.json       # Complete metrics, CV scores, and feature weights
+├── report/
+│   └── Week4_Machine_Learning_Model_Development_Report.docx  # Formatted Word report (2.24 MB)
+├── scripts/
+│   ├── generate_churn_dataset.py        # Reproducible synthetic dataset generator
+│   ├── train_and_evaluate_models.py     # Complete ML training & evaluation pipeline
+│   └── build_ml_word_report.py          # Word document compiler
+├── visualizations/
+│   ├── fig1_eda_and_correlations.png    # EDA distributions & correlation matrix
+│   ├── fig2_confusion_matrices.png      # Normalized confusion matrices
+│   ├── fig3_roc_and_pr_curves.png       # ROC-AUC & Precision-Recall curves
+│   ├── fig4_cv_performance_comparison.png # 5-Fold CV metric bar chart
+│   ├── fig5_feature_importance.png      # Feature importance & coefficient comparison
+│   └── fig6_learning_curves_overfitting.png # Learning curves diagnosing overfitting
+├── requirements.txt                     # Dependency specifications
+├── submission_description.txt           # Portal submission description text (420+ words)
+└── README.md                            # Comprehensive technical documentation
 ```
-
-The repository currently contains the Week 1/2 COVID analysis material along with the Week 3 statistical-analysis files and generated visualizations.
 
 ---
 
-# ▶️ How to Run the Project
+## 💻 Installation & Reproduction Guide
 
-## 1. Clone the Repository
+### 1. Prerequisites
+Ensure Python 3.10+ is installed on your system.
 
-```bash
-git clone https://github.com/ankesh825/COVID_19_DATA_ANALYSIS.git
-cd COVID_19_DATA_ANALYSIS
-```
-
-## 2. Install Required Libraries
-
+### 2. Install Dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-## 3. Run Week 1
-
+### 3. Reproduce Data, Analysis, and Report
 ```bash
-python "Week_1_Data Acquisition, Cleaning, and Exploratory Analysis.python"
+# Step 1: Generate dataset
+python scripts/generate_churn_dataset.py
+
+# Step 2: Train models, run CV, and generate 6 visualization figures
+python scripts/train_and_evaluate_models.py
+
+# Step 3: Build publication-grade Word document (.docx)
+python scripts/build_ml_word_report.py
 ```
-
-## 4. Run Week 2
-
-```bash
-python "Week2 Python code .py"
-```
-
-## 5. Run Week 3 Statistical Analysis
-
-```bash
-python run_statistical_tests.py
-```
-
-If the dataset needs to be regenerated:
-
-```bash
-python generate_dataset.py
-```
-
-The Week 3 workflow also includes a script for building the Word report:
-
-```bash
-python build_word_report.py
-```
-
----
-
-# 📚 Key Statistical Concepts Used
-
-### Hypothesis Testing
-
-A statistical method used to determine whether the observed evidence is strong enough to reject a null hypothesis.
-
-### Null Hypothesis (H₀)
-
-The default assumption that there is no statistically significant difference or relationship.
-
-### Alternative Hypothesis (H₁)
-
-The hypothesis that a statistically significant difference or relationship exists.
-
-### p-value
-
-The probability of observing results at least as extreme as those found, assuming the null hypothesis is true.
-
-### Confidence Interval
-
-A range used to estimate the plausible values of a population parameter.
-
-### Effect Size
-
-Measures the practical magnitude of an observed difference or relationship.
-
-### Type I Error
-
-Rejecting a true null hypothesis.
-
-### Type II Error
-
-Failing to reject a false null hypothesis.
-
----
-
-# ⚠️ Limitations
-
-The analysis should be interpreted within the limitations of the datasets and study design.
-
-### Week 1–2
-
-COVID-19 reporting differs between countries because of differences in:
-
-* Testing capacity
-* Reporting systems
-* Healthcare infrastructure
-* Vaccination reporting
-* Data completeness
-
-Therefore, reported values should not automatically be interpreted as the exact true number of infections or deaths.
-
-### Week 3
-
-The Week 3 dataset is a curated experimental dataset used for statistical-analysis practice.
-
-Statistical significance does not automatically mean that an effect is large or practically important. This is why effect sizes and confidence intervals were included.
-
----
-
-# 🎓 Learning Outcomes
-
-Through these tasks, I developed practical experience in:
-
-* Collecting real-world datasets
-* Cleaning large datasets with Pandas
-* Handling missing values
-* Performing EDA
-* Creating meaningful visualizations
-* Finding trends and patterns
-* Formulating statistical hypotheses
-* Selecting appropriate statistical tests
-* Understanding p-values
-* Calculating confidence intervals
-* Measuring effect sizes
-* Performing post-hoc analysis
-* Interpreting statistical results
-* Creating reproducible Python workflows
-* Documenting Data Science projects professionally
-
----
-
-# 📌 Internship Progress
-
-```text
-Week 1
-Data Acquisition
-       ↓
-Data Cleaning
-       ↓
-Exploratory Data Analysis
-       ↓
-Week 2
-Advanced Visualization
-       ↓
-Data Storytelling
-       ↓
-Public-Health Insights
-       ↓
-Week 3
-Hypothesis Formulation
-       ↓
-Statistical Testing
-       ↓
-p-values + Confidence Intervals
-       ↓
-Effect Size Analysis
-       ↓
-Statistical Conclusions
-```
-
----
-
-# 📖 References
-
-### Week 1
-
-**Our World in Data — COVID-19 Dataset**
-
-https://github.com/owid/covid-19-data
-
-**COVID-19 Pandemic Background**
-
-https://en.wikipedia.org/wiki/COVID-19_pandemic
-
-### Week 2
-
-WHO COVID-19 global datasets were used for reported cases, deaths, vaccination, age-specific mortality and hospitalization analysis.
-
-### Week 3
-
-Python scientific computing ecosystem:
-
-* Pandas
-* NumPy
-* SciPy
-* Statsmodels
-* Matplotlib
-* Seaborn
-
----
-
-# 👨‍💻 Author
-
-**Ankesh**
-
-Data Science & Python Analytics Intern
-
-GitHub:
-https://github.com/ankesh825
-
----
-
-## ⭐ Project Summary
-
-This repository represents my progression from **raw data to statistical evidence**.
-
-The first stage focused on acquiring and cleaning data, the second stage focused on communicating patterns through visualization, and the third stage focused on determining whether observed differences were statistically significant.
-
-Together, these tasks demonstrate an end-to-end Data Science workflow:
-
-**Data → Cleaning → EDA → Visualization → Hypothesis → Statistical Testing → Interpretation → Insights**
-
----
