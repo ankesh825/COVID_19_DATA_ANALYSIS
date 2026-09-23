@@ -1,0 +1,261 @@
+{
+    "eda": {
+        "total_samples": 3500,
+        "retained_count": 2955,
+        "churned_count": 545,
+        "churn_rate_pct": 15.571428571428573,
+        "tenure_summary": {
+            "mean": 35.17514285714286,
+            "median": 35.0,
+            "std": 21.57537706556178
+        },
+        "monthly_charges_summary": {
+            "mean": 59.75598857142857,
+            "median": 63.525000000000006,
+            "std": 22.597445379114394
+        },
+        "total_charges_summary": {
+            "mean": 2106.4516171428572,
+            "median": 1707.9650000000001,
+            "std": 1597.6203762128705
+        },
+        "contract_churn_rates": {
+            "Month-to-Month": 29.62,
+            "One-Year": 7.64,
+            "Two-Year": 2.03
+        },
+        "internet_churn_rates": {
+            "DSL": 10.62,
+            "Fiber Optic": 22.44,
+            "No": 8.33
+        }
+    },
+    "split_info": {
+        "train_total": 2800,
+        "train_churn": 436,
+        "train_churn_pct": 15.571428571428573,
+        "test_total": 700,
+        "test_churn": 109,
+        "test_churn_pct": 15.571428571428573
+    },
+    "cv_results": {
+        "Logistic Regression": {
+            "accuracy": {
+                "mean": 0.8525,
+                "std": 0.007016743822995911
+            },
+            "balanced_accuracy": {
+                "mean": 0.6105626024286742,
+                "std": 0.020494127845537776
+            },
+            "precision": {
+                "mean": 0.561484384720667,
+                "std": 0.05235963033574681
+            },
+            "recall": {
+                "mean": 0.2591954022988506,
+                "std": 0.047545098574589495
+            },
+            "f1": {
+                "mean": 0.35126255030144043,
+                "std": 0.04815587655187806
+            },
+            "roc_auc": {
+                "mean": 0.8365871066934553,
+                "std": 0.015910723920650578
+            }
+        },
+        "Decision Tree (Pruned)": {
+            "accuracy": {
+                "mean": 0.8478571428571428,
+                "std": 0.0041342274652822085
+            },
+            "balanced_accuracy": {
+                "mean": 0.5844707009200097,
+                "std": 0.014967834863062768
+            },
+            "precision": {
+                "mean": 0.5389848246991104,
+                "std": 0.04105794657100339
+            },
+            "recall": {
+                "mean": 0.20193312434691743,
+                "std": 0.040594636272582675
+            },
+            "f1": {
+                "mean": 0.28993871436860186,
+                "std": 0.03585958440225725
+            },
+            "roc_auc": {
+                "mean": 0.7697826903211776,
+                "std": 0.017585310479969623
+            }
+        },
+        "Random Forest": {
+            "accuracy": {
+                "mean": 0.8560714285714285,
+                "std": 0.00683254516775324
+            },
+            "balanced_accuracy": {
+                "mean": 0.5921346928571046,
+                "std": 0.02206295312476083
+            },
+            "precision": {
+                "mean": 0.6085750915750916,
+                "std": 0.05755383393310861
+            },
+            "recall": {
+                "mean": 0.20880355276907,
+                "std": 0.04595233616373665
+            },
+            "f1": {
+                "mean": 0.30905661193864586,
+                "std": 0.05404219446711539
+            },
+            "roc_auc": {
+                "mean": 0.8216132431240215,
+                "std": 0.016457090212321647
+            }
+        }
+    },
+    "test_metrics": {
+        "Logistic Regression": {
+            "accuracy": 0.8657142857142858,
+            "balanced_accuracy": 0.6398888526676912,
+            "precision": 0.6415094339622641,
+            "recall": 0.3119266055045872,
+            "specificity": 0.9678510998307953,
+            "f1_score": 0.41975308641975306,
+            "roc_auc": 0.8637979478104287,
+            "average_precision_pr_auc": 0.545653337035846,
+            "mcc": 0.38346878564495157,
+            "brier_score": 0.09557299074856075,
+            "confusion_matrix": {
+                "tn": 572,
+                "fp": 19,
+                "fn": 75,
+                "tp": 34
+            }
+        },
+        "Decision Tree (Pruned)": {
+            "accuracy": 0.8414285714285714,
+            "balanced_accuracy": 0.5843539949393812,
+            "precision": 0.4791666666666667,
+            "recall": 0.21100917431192662,
+            "specificity": 0.9576988155668359,
+            "f1_score": 0.2929936305732484,
+            "roc_auc": 0.7962945714773592,
+            "average_precision_pr_auc": 0.415990836681068,
+            "mcc": 0.24204617489175229,
+            "brier_score": 0.10785278063723683,
+            "confusion_matrix": {
+                "tn": 566,
+                "fp": 25,
+                "fn": 86,
+                "tp": 23
+            }
+        },
+        "Random Forest": {
+            "accuracy": 0.8585714285714285,
+            "balanced_accuracy": 0.5907651469287012,
+            "precision": 0.6470588235294118,
+            "recall": 0.2018348623853211,
+            "specificity": 0.9796954314720813,
+            "f1_score": 0.3076923076923077,
+            "roc_auc": 0.8446265853242056,
+            "average_precision_pr_auc": 0.5136100344661235,
+            "mcc": 0.30618190934992057,
+            "brier_score": 0.101827570642498,
+            "confusion_matrix": {
+                "tn": 579,
+                "fp": 12,
+                "fn": 87,
+                "tp": 22
+            }
+        }
+    },
+    "top_features_rf": [
+        {
+            "Feature": "tenure_months",
+            "RF_Importance": 0.272
+        },
+        {
+            "Feature": "total_charges",
+            "RF_Importance": 0.2088
+        },
+        {
+            "Feature": "monthly_charges",
+            "RF_Importance": 0.1329
+        },
+        {
+            "Feature": "contract_type_Two-Year",
+            "RF_Importance": 0.0767
+        },
+        {
+            "Feature": "contract_type_One-Year",
+            "RF_Importance": 0.0636
+        },
+        {
+            "Feature": "internet_service_Fiber Optic",
+            "RF_Importance": 0.0598
+        },
+        {
+            "Feature": "customer_service_calls",
+            "RF_Importance": 0.0335
+        },
+        {
+            "Feature": "payment_method_Electronic Check",
+            "RF_Importance": 0.0208
+        },
+        {
+            "Feature": "partner_Yes",
+            "RF_Importance": 0.0149
+        },
+        {
+            "Feature": "gender_Male",
+            "RF_Importance": 0.0145
+        }
+    ],
+    "top_features_lr": [
+        {
+            "Feature": "contract_type_Two-Year",
+            "LR_Coef": -2.138
+        },
+        {
+            "Feature": "contract_type_One-Year",
+            "LR_Coef": -1.215
+        },
+        {
+            "Feature": "internet_service_Fiber Optic",
+            "LR_Coef": 1.0015
+        },
+        {
+            "Feature": "tenure_months",
+            "LR_Coef": -0.4693
+        },
+        {
+            "Feature": "total_charges",
+            "LR_Coef": -0.4635
+        },
+        {
+            "Feature": "payment_method_Electronic Check",
+            "LR_Coef": 0.4188
+        },
+        {
+            "Feature": "online_security_Yes",
+            "LR_Coef": -0.3464
+        },
+        {
+            "Feature": "tech_support_Yes",
+            "LR_Coef": -0.3217
+        },
+        {
+            "Feature": "payment_method_Mailed Check",
+            "LR_Coef": -0.3077
+        },
+        {
+            "Feature": "payment_method_Credit Card (automatic)",
+            "LR_Coef": -0.225
+        }
+    ]
+}
