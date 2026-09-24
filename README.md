@@ -172,6 +172,7 @@ python scripts/generate_churn_dataset.py
 # Step 2: Train models, run CV, and generate 6 visualization figures
 python scripts/train_and_evaluate_models.py
 
-# Step 3: Build publication-grade Word document (.docx)
+# Step 3: Build publication-grade Word  (.docx)
 python scripts/build_ml_word_report.py
 ```
+more..... 
