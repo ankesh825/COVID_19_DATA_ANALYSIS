@@ -1,4 +1,4 @@
-# 📊 Data Science & Machine Learning Portfolio — YuvaIntern Internship
+# 📊 Data Science & Machine Learning Portfolio — YuvaIntern Internship comoleted
 
 [![Python 3.11](https://img.shields.io/badge/Python-3.11-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-1.9+-F7931E?logo=scikit-learn&logoColor=white)](https://scikit-learn.org/)
